@@ -2,7 +2,7 @@ name: Upstream Sync
 
 on:
   schedule:
-    - cron: "0 */6 * * *" # run every 6 hours
+    - cron: "0 */1 * * *" # 每小时运行一次
   workflow_dispatch:
 
 permissions:
@@ -16,16 +16,14 @@ jobs:
     if: ${{ github.event.repository.fork }}
 
     steps:
-      # Step 1: run a standard checkout action
       - name: Checkout target repo
         uses: actions/checkout@v4
 
-      # Step 2: run the sync action
       - name: Sync upstream changes
         id: sync
         uses: aormsby/Fork-Sync-With-Upstream-action@v3.4.1
         with:
-          upstream_sync_repo: senshinya/MoonTV
+          upstream_sync_repo: LibreSpark/LibreTV
           upstream_sync_branch: main
           target_sync_branch: main
           target_repo_token: ${{ secrets.GITHUB_TOKEN }}
